@@ -24,13 +24,7 @@ public class SalaryInfo {
             from = LocalDate.parse(df, FORMATTER);
             to = LocalDate.parse(dt, FORMATTER);
         } catch (DateTimeParseException e) {
-            StringBuilder headerOnly = new StringBuilder();
-            headerOnly.append("Report for period ")
-                    .append(df)
-                    .append(" - ")
-                    .append(dt)
-                    .append(LINE_SEP);
-            return headerOnly.toString();
+            return "Report for period " + df + " - " + dt + LINE_SEP;
         }
 
         if (names == null) {
@@ -47,9 +41,9 @@ public class SalaryInfo {
                 .append(dt)
                 .append(LINE_SEP);
 
-        for (String name : names) {
+        for (int i = 0; i < names.length; i++) {
+            String name = names[i] == null ? "" : names[i].trim();
             long total = 0L;
-            String targetName = name == null ? "" : name.trim();
 
             for (String entry : data) {
                 if (entry == null || entry.trim().isEmpty()) {
@@ -72,7 +66,7 @@ public class SalaryInfo {
                 }
 
                 String entryName = parts[1].trim();
-                if (!entryName.equals(targetName)) {
+                if (!entryName.equals(name)) {
                     continue;
                 }
 
@@ -88,7 +82,10 @@ public class SalaryInfo {
                 total += (long) hours * rate;
             }
 
-            report.append(targetName).append(" - ").append(total).append(LINE_SEP);
+            report.append(name).append(" - ").append(total);
+            if (i < names.length - 1) {
+                report.append(LINE_SEP);
+            }
         }
 
         return report.toString();
