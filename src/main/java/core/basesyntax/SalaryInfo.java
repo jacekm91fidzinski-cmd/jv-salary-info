@@ -26,9 +26,9 @@ public class SalaryInfo {
         } catch (DateTimeParseException e) {
             StringBuilder headerOnly = new StringBuilder();
             headerOnly.append("Report for period ")
-                    .append(df)   // use trimmed
+                    .append(df)
                     .append(" - ")
-                    .append(dt)   // use trimmed
+                    .append(dt)
                     .append(LINE_SEP);
             return headerOnly.toString();
         }
@@ -41,7 +41,6 @@ public class SalaryInfo {
         }
 
         StringBuilder report = new StringBuilder();
-        // use trimmed dates in header to avoid stray spaces
         report.append("Report for period ")
                 .append(df)
                 .append(" - ")
